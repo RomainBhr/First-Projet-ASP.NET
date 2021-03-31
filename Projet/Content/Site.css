@@ -1,0 +1,89 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: url("https://www.wallpapertip.com/wmimgs/5-58194_soccer-ball-in-net-football-wallpapers-for-laptop.jpg");
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 100px;
+}
+.bouton {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.corp-page {
+    background-color: darkgray;
+    margin: auto;
+    padding: 10px;
+    box-shadow: #000 9px 6px 20px 0px;
+}
+
+.navbar-inverse {
+    background-color: #494949;
+    box-shadow: #000 9px 6px 20px 0px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+.menu-acc::after {
+    content: '';
+    display: block;
+    float: right;
+    width: 0;
+    height: 2px;
+    background-color: #0089ff;
+    transition: width .3s;
+}
+
+.menu-acc:hover::after {
+    float: right;
+    width: 100%;
+    transition: width .3s;
+}
+
+.container .jumbotron, .container-fluid .jumbotron {
+    box-shadow: inset #004179 -10px -10px 0px 0px;
+}
+.u {
+    color: #004179;
+}
+
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    color: #00adff;
+}
+.table{
+    border: 0px solid #fff;
+}
+th, td {
+    text-align: center;
+    border: 0px solid #fff;
+}
+.test {
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 0px solid #ddd; 
+}

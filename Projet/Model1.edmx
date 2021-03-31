@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Boehler_FootModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adherent">
+          <Key>
+            <PropertyRef Name="idMembre" />
+          </Key>
+          <Property Name="idMembre" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="255" />
+          <Property Name="Prenom" Type="varchar" MaxLength="255" />
+          <Property Name="DateDeNaissance" Type="date" />
+          <Property Name="Adresse" Type="varchar" MaxLength="255" />
+          <Property Name="Ville" Type="varchar" MaxLength="255" />
+          <Property Name="Numero" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="idNiveau" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entrainements">
+          <Key>
+            <PropertyRef Name="idEntrainement" />
+          </Key>
+          <Property Name="idEntrainement" Type="int" Nullable="false" />
+          <Property Name="DateEntrainement" Type="date" />
+          <Property Name="HeureDebut" Type="time" Precision="7" />
+          <Property Name="HeureFin" Type="time" Precision="7" />
+          <Property Name="idEntrainement_1" Type="int" Nullable="false" />
+          <Property Name="idEntraineur" Type="int" Nullable="false" />
+          <Property Name="idEquipe" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entraineur">
+          <Key>
+            <PropertyRef Name="idEntraineur" />
+          </Key>
+          <Property Name="idEntraineur" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="255" />
+          <Property Name="Prenom" Type="varchar" MaxLength="255" />
+          <Property Name="Numero" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="DateDeNaissance" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Equipe">
+          <Key>
+            <PropertyRef Name="idEquipe" />
+          </Key>
+          <Property Name="idEquipe" Type="int" Nullable="false" />
+          <Property Name="LibelleEquipe" Type="varchar" MaxLength="255" />
+          <Property Name="idEntraineur" Type="int" Nullable="false" />
+          <Property Name="idNiveau" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Matchs">
+          <Key>
+            <PropertyRef Name="idMatch" />
+          </Key>
+          <Property Name="idMatch" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="varchar" MaxLength="255" />
+          <Property Name="DateMatch" Type="date" />
+          <Property Name="Resultat" Type="varchar" MaxLength="255" />
+          <Property Name="idEquipe" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Niveau">
+          <Key>
+            <PropertyRef Name="idNiveau" />
+          </Key>
+          <Property Name="idNiveau" Type="int" Nullable="false" />
+          <Property Name="LibelleNiveau" Type="varchar" MaxLength="255" />
+          <Property Name="AgeMinimum" Type="int" />
+          <Property Name="AgeMaximum" Type="int" />
+        </EntityType>
+        <EntityType Name="TypeEntrainement">
+          <Key>
+            <PropertyRef Name="idEntrainement" />
+          </Key>
+          <Property Name="idEntrainement" Type="int" Nullable="false" />
+          <Property Name="Libelle" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Adherent__idNive__164452B1">
+          <End Role="Niveau" Type="Self.Niveau" Multiplicity="1" />
+          <End Role="Adherent" Type="Self.Adherent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveau">
+              <PropertyRef Name="idNiveau" />
+            </Principal>
+            <Dependent Role="Adherent">
+              <PropertyRef Name="idNiveau" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrainem__idEnt__1FCDBCEB">
+          <End Role="TypeEntrainement" Type="Self.TypeEntrainement" Multiplicity="1" />
+          <End Role="Entrainements" Type="Self.Entrainements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeEntrainement">
+              <PropertyRef Name="idEntrainement" />
+            </Principal>
+            <Dependent Role="Entrainements">
+              <PropertyRef Name="idEntrainement_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrainem__idEnt__20C1E124">
+          <End Role="Entraineur" Type="Self.Entraineur" Multiplicity="1" />
+          <End Role="Entrainements" Type="Self.Entrainements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entraineur">
+              <PropertyRef Name="idEntraineur" />
+            </Principal>
+            <Dependent Role="Entrainements">
+              <PropertyRef Name="idEntraineur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrainem__idEqu__21B6055D">
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="1" />
+          <End Role="Entrainements" Type="Self.Entrainements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipe">
+              <PropertyRef Name="idEquipe" />
+            </Principal>
+            <Dependent Role="Entrainements">
+              <PropertyRef Name="idEquipe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipe__idEntrai__1920BF5C">
+          <End Role="Entraineur" Type="Self.Entraineur" Multiplicity="1" />
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entraineur">
+              <PropertyRef Name="idEntraineur" />
+            </Principal>
+            <Dependent Role="Equipe">
+              <PropertyRef Name="idEntraineur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipe__idNiveau__1A14E395">
+          <End Role="Niveau" Type="Self.Niveau" Multiplicity="1" />
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveau">
+              <PropertyRef Name="idNiveau" />
+            </Principal>
+            <Dependent Role="Equipe">
+              <PropertyRef Name="idNiveau" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Matchs__idEquipe__24927208">
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="1" />
+          <End Role="Matchs" Type="Self.Matchs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipe">
+              <PropertyRef Name="idEquipe" />
+            </Principal>
+            <Dependent Role="Matchs">
+              <PropertyRef Name="idEquipe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Boehler_FootModelStoreContainer">
+          <EntitySet Name="Adherent" EntityType="Self.Adherent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entrainements" EntityType="Self.Entrainements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entraineur" EntityType="Self.Entraineur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipe" EntityType="Self.Equipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matchs" EntityType="Self.Matchs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Niveau" EntityType="Self.Niveau" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeEntrainement" EntityType="Self.TypeEntrainement" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Adherent__idNive__164452B1" Association="Self.FK__Adherent__idNive__164452B1">
+            <End Role="Niveau" EntitySet="Niveau" />
+            <End Role="Adherent" EntitySet="Adherent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrainem__idEnt__1FCDBCEB" Association="Self.FK__Entrainem__idEnt__1FCDBCEB">
+            <End Role="TypeEntrainement" EntitySet="TypeEntrainement" />
+            <End Role="Entrainements" EntitySet="Entrainements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrainem__idEnt__20C1E124" Association="Self.FK__Entrainem__idEnt__20C1E124">
+            <End Role="Entraineur" EntitySet="Entraineur" />
+            <End Role="Entrainements" EntitySet="Entrainements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrainem__idEqu__21B6055D" Association="Self.FK__Entrainem__idEqu__21B6055D">
+            <End Role="Equipe" EntitySet="Equipe" />
+            <End Role="Entrainements" EntitySet="Entrainements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipe__idEntrai__1920BF5C" Association="Self.FK__Equipe__idEntrai__1920BF5C">
+            <End Role="Entraineur" EntitySet="Entraineur" />
+            <End Role="Equipe" EntitySet="Equipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipe__idNiveau__1A14E395" Association="Self.FK__Equipe__idNiveau__1A14E395">
+            <End Role="Niveau" EntitySet="Niveau" />
+            <End Role="Equipe" EntitySet="Equipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Matchs__idEquipe__24927208" Association="Self.FK__Matchs__idEquipe__24927208">
+            <End Role="Equipe" EntitySet="Equipe" />
+            <End Role="Matchs" EntitySet="Matchs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Boehler_FootModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adherent">
+          <Key>
+            <PropertyRef Name="idMembre" />
+          </Key>
+          <Property Name="idMembre" Type="Int32" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DateDeNaissance" Type="DateTime" Precision="0" />
+          <Property Name="Adresse" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Ville" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="idNiveau" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Niveau" Relationship="Self.FK__Adherent__idNive__164452B1" FromRole="Adherent" ToRole="Niveau" />
+        </EntityType>
+        <EntityType Name="Entrainement">
+          <Key>
+            <PropertyRef Name="idEntrainement" />
+          </Key>
+          <Property Name="idEntrainement" Type="Int32" Nullable="false" />
+          <Property Name="DateEntrainement" Type="DateTime" Precision="0" />
+          <Property Name="HeureDebut" Type="Time" Precision="7" />
+          <Property Name="HeureFin" Type="Time" Precision="7" />
+          <Property Name="idEntrainement_1" Type="Int32" Nullable="false" />
+          <Property Name="idEntraineur" Type="Int32" Nullable="false" />
+          <Property Name="idEquipe" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TypeEntrainement" Relationship="Self.FK__Entrainem__idEnt__1FCDBCEB" FromRole="Entrainements" ToRole="TypeEntrainement" />
+          <NavigationProperty Name="Entraineur" Relationship="Self.FK__Entrainem__idEnt__20C1E124" FromRole="Entrainements" ToRole="Entraineur" />
+          <NavigationProperty Name="Equipe" Relationship="Self.FK__Entrainem__idEqu__21B6055D" FromRole="Entrainements" ToRole="Equipe" />
+        </EntityType>
+        <EntityType Name="Entraineur">
+          <Key>
+            <PropertyRef Name="idEntraineur" />
+          </Key>
+          <Property Name="idEntraineur" Type="Int32" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DateDeNaissance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Entrainements" Relationship="Self.FK__Entrainem__idEnt__20C1E124" FromRole="Entraineur" ToRole="Entrainements" />
+          <NavigationProperty Name="Equipes" Relationship="Self.FK__Equipe__idEntrai__1920BF5C" FromRole="Entraineur" ToRole="Equipe" />
+        </EntityType>
+        <EntityType Name="Equipe">
+          <Key>
+            <PropertyRef Name="idEquipe" />
+          </Key>
+          <Property Name="idEquipe" Type="Int32" Nullable="false" />
+          <Property Name="LibelleEquipe" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="idEntraineur" Type="Int32" Nullable="false" />
+          <Property Name="idNiveau" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entrainements" Relationship="Self.FK__Entrainem__idEqu__21B6055D" FromRole="Equipe" ToRole="Entrainements" />
+          <NavigationProperty Name="Entraineur" Relationship="Self.FK__Equipe__idEntrai__1920BF5C" FromRole="Equipe" ToRole="Entraineur" />
+          <NavigationProperty Name="Niveau" Relationship="Self.FK__Equipe__idNiveau__1A14E395" FromRole="Equipe" ToRole="Niveau" />
+          <NavigationProperty Name="Matchs" Relationship="Self.FK__Matchs__idEquipe__24927208" FromRole="Equipe" ToRole="Matchs" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="idMatch" />
+          </Key>
+          <Property Name="idMatch" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DateMatch" Type="DateTime" Precision="0" />
+          <Property Name="Resultat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="idEquipe" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipe" Relationship="Self.FK__Matchs__idEquipe__24927208" FromRole="Matchs" ToRole="Equipe" />
+        </EntityType>
+        <EntityType Name="Niveau">
+          <Key>
+            <PropertyRef Name="idNiveau" />
+          </Key>
+          <Property Name="idNiveau" Type="Int32" Nullable="false" />
+          <Property Name="LibelleNiveau" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AgeMinimum" Type="Int32" />
+          <Property Name="AgeMaximum" Type="Int32" />
+          <NavigationProperty Name="Adherents" Relationship="Self.FK__Adherent__idNive__164452B1" FromRole="Niveau" ToRole="Adherent" />
+          <NavigationProperty Name="Equipes" Relationship="Self.FK__Equipe__idNiveau__1A14E395" FromRole="Niveau" ToRole="Equipe" />
+        </EntityType>
+        <EntityType Name="TypeEntrainement">
+          <Key>
+            <PropertyRef Name="idEntrainement" />
+          </Key>
+          <Property Name="idEntrainement" Type="Int32" Nullable="false" />
+          <Property Name="Libelle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Entrainements" Relationship="Self.FK__Entrainem__idEnt__1FCDBCEB" FromRole="TypeEntrainement" ToRole="Entrainements" />
+        </EntityType>
+        <Association Name="FK__Adherent__idNive__164452B1">
+          <End Role="Niveau" Type="Self.Niveau" Multiplicity="1" />
+          <End Role="Adherent" Type="Self.Adherent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveau">
+              <PropertyRef Name="idNiveau" />
+            </Principal>
+            <Dependent Role="Adherent">
+              <PropertyRef Name="idNiveau" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrainem__idEnt__1FCDBCEB">
+          <End Role="TypeEntrainement" Type="Self.TypeEntrainement" Multiplicity="1" />
+          <End Role="Entrainements" Type="Self.Entrainement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeEntrainement">
+              <PropertyRef Name="idEntrainement" />
+            </Principal>
+            <Dependent Role="Entrainements">
+              <PropertyRef Name="idEntrainement_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrainem__idEnt__20C1E124">
+          <End Role="Entraineur" Type="Self.Entraineur" Multiplicity="1" />
+          <End Role="Entrainements" Type="Self.Entrainement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entraineur">
+              <PropertyRef Name="idEntraineur" />
+            </Principal>
+            <Dependent Role="Entrainements">
+              <PropertyRef Name="idEntraineur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entrainem__idEqu__21B6055D">
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="1" />
+          <End Role="Entrainements" Type="Self.Entrainement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipe">
+              <PropertyRef Name="idEquipe" />
+            </Principal>
+            <Dependent Role="Entrainements">
+              <PropertyRef Name="idEquipe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipe__idEntrai__1920BF5C">
+          <End Role="Entraineur" Type="Self.Entraineur" Multiplicity="1" />
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entraineur">
+              <PropertyRef Name="idEntraineur" />
+            </Principal>
+            <Dependent Role="Equipe">
+              <PropertyRef Name="idEntraineur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipe__idNiveau__1A14E395">
+          <End Role="Niveau" Type="Self.Niveau" Multiplicity="1" />
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveau">
+              <PropertyRef Name="idNiveau" />
+            </Principal>
+            <Dependent Role="Equipe">
+              <PropertyRef Name="idNiveau" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Matchs__idEquipe__24927208">
+          <End Role="Equipe" Type="Self.Equipe" Multiplicity="1" />
+          <End Role="Matchs" Type="Self.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipe">
+              <PropertyRef Name="idEquipe" />
+            </Principal>
+            <Dependent Role="Matchs">
+              <PropertyRef Name="idEquipe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Boehler_FootEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adherents" EntityType="Self.Adherent" />
+          <EntitySet Name="Entrainements" EntityType="Self.Entrainement" />
+          <EntitySet Name="Entraineurs" EntityType="Self.Entraineur" />
+          <EntitySet Name="Equipes" EntityType="Self.Equipe" />
+          <EntitySet Name="Matchs" EntityType="Self.Match" />
+          <EntitySet Name="Niveaux" EntityType="Self.Niveau" />
+          <EntitySet Name="TypeEntrainements" EntityType="Self.TypeEntrainement" />
+          <AssociationSet Name="FK__Adherent__idNive__164452B1" Association="Self.FK__Adherent__idNive__164452B1">
+            <End Role="Niveau" EntitySet="Niveaux" />
+            <End Role="Adherent" EntitySet="Adherents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrainem__idEnt__1FCDBCEB" Association="Self.FK__Entrainem__idEnt__1FCDBCEB">
+            <End Role="TypeEntrainement" EntitySet="TypeEntrainements" />
+            <End Role="Entrainements" EntitySet="Entrainements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrainem__idEnt__20C1E124" Association="Self.FK__Entrainem__idEnt__20C1E124">
+            <End Role="Entraineur" EntitySet="Entraineurs" />
+            <End Role="Entrainements" EntitySet="Entrainements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entrainem__idEqu__21B6055D" Association="Self.FK__Entrainem__idEqu__21B6055D">
+            <End Role="Equipe" EntitySet="Equipes" />
+            <End Role="Entrainements" EntitySet="Entrainements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipe__idEntrai__1920BF5C" Association="Self.FK__Equipe__idEntrai__1920BF5C">
+            <End Role="Entraineur" EntitySet="Entraineurs" />
+            <End Role="Equipe" EntitySet="Equipes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipe__idNiveau__1A14E395" Association="Self.FK__Equipe__idNiveau__1A14E395">
+            <End Role="Niveau" EntitySet="Niveaux" />
+            <End Role="Equipe" EntitySet="Equipes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Matchs__idEquipe__24927208" Association="Self.FK__Matchs__idEquipe__24927208">
+            <End Role="Equipe" EntitySet="Equipes" />
+            <End Role="Matchs" EntitySet="Matchs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Boehler_FootModelStoreContainer" CdmEntityContainer="Boehler_FootEntities">
+          <EntitySetMapping Name="Adherents">
+            <EntityTypeMapping TypeName="Boehler_FootModel.Adherent">
+              <MappingFragment StoreEntitySet="Adherent">
+                <ScalarProperty Name="idMembre" ColumnName="idMembre" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="DateDeNaissance" ColumnName="DateDeNaissance" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="idNiveau" ColumnName="idNiveau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entrainements">
+            <EntityTypeMapping TypeName="Boehler_FootModel.Entrainement">
+              <MappingFragment StoreEntitySet="Entrainements">
+                <ScalarProperty Name="idEntrainement" ColumnName="idEntrainement" />
+                <ScalarProperty Name="DateEntrainement" ColumnName="DateEntrainement" />
+                <ScalarProperty Name="HeureDebut" ColumnName="HeureDebut" />
+                <ScalarProperty Name="HeureFin" ColumnName="HeureFin" />
+                <ScalarProperty Name="idEntrainement_1" ColumnName="idEntrainement_1" />
+                <ScalarProperty Name="idEntraineur" ColumnName="idEntraineur" />
+                <ScalarProperty Name="idEquipe" ColumnName="idEquipe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entraineurs">
+            <EntityTypeMapping TypeName="Boehler_FootModel.Entraineur">
+              <MappingFragment StoreEntitySet="Entraineur">
+                <ScalarProperty Name="idEntraineur" ColumnName="idEntraineur" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateDeNaissance" ColumnName="DateDeNaissance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipes">
+            <EntityTypeMapping TypeName="Boehler_FootModel.Equipe">
+              <MappingFragment StoreEntitySet="Equipe">
+                <ScalarProperty Name="idEquipe" ColumnName="idEquipe" />
+                <ScalarProperty Name="LibelleEquipe" ColumnName="LibelleEquipe" />
+                <ScalarProperty Name="idEntraineur" ColumnName="idEntraineur" />
+                <ScalarProperty Name="idNiveau" ColumnName="idNiveau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matchs">
+            <EntityTypeMapping TypeName="Boehler_FootModel.Match">
+              <MappingFragment StoreEntitySet="Matchs">
+                <ScalarProperty Name="idMatch" ColumnName="idMatch" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="DateMatch" ColumnName="DateMatch" />
+                <ScalarProperty Name="Resultat" ColumnName="Resultat" />
+                <ScalarProperty Name="idEquipe" ColumnName="idEquipe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Niveaux">
+            <EntityTypeMapping TypeName="Boehler_FootModel.Niveau">
+              <MappingFragment StoreEntitySet="Niveau">
+                <ScalarProperty Name="idNiveau" ColumnName="idNiveau" />
+                <ScalarProperty Name="LibelleNiveau" ColumnName="LibelleNiveau" />
+                <ScalarProperty Name="AgeMinimum" ColumnName="AgeMinimum" />
+                <ScalarProperty Name="AgeMaximum" ColumnName="AgeMaximum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeEntrainements">
+            <EntityTypeMapping TypeName="Boehler_FootModel.TypeEntrainement">
+              <MappingFragment StoreEntitySet="TypeEntrainement">
+                <ScalarProperty Name="idEntrainement" ColumnName="idEntrainement" />
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

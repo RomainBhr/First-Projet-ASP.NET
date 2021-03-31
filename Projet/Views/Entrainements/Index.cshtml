@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Projet.Entrainement>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Prochain entrainement :</h2>
+
+<p>
+    @Html.ActionLink("Créer un nouvel entrainement", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateEntrainement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeureDebut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeureFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeEntrainement.Libelle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entraineur.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipe.LibelleEquipe)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td class="test">
+        @Html.DisplayFor(modelItem => item.DateEntrainement)
+    </td>
+    <td class="test">
+        @Html.DisplayFor(modelItem => item.HeureDebut)
+    </td>
+    <td class="test">
+        @Html.DisplayFor(modelItem => item.HeureFin)
+    </td>
+    <td class="test">
+        @Html.DisplayFor(modelItem => item.TypeEntrainement.Libelle)
+    </td>
+    <td class="test">
+        @Html.DisplayFor(modelItem => item.Entraineur.Nom)
+    </td>
+    <td class="test">
+        @Html.DisplayFor(modelItem => item.Equipe.LibelleEquipe)
+    </td>
+    <td>
+        @*
+        @Html.ActionLink("Edit", "Edit", new { id=item.idEntrainement }) |
+        @Html.ActionLink("Details", "Details", new { id=item.idEntrainement }) |*@
+        @Html.ActionLink("Delete", "Delete", new { id = item.idEntrainement })
+    </td>
+</tr>
+}
+
+</table>

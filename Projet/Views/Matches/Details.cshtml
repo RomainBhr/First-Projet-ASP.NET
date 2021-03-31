@@ -1,0 +1,50 @@
+﻿@model Projet.Match
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Match</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Libelle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Libelle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateMatch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateMatch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resultat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resultat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipe.LibelleEquipe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipe.LibelleEquipe)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idMatch }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

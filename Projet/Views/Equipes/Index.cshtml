@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Projet.Equipe>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LibelleEquipe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entraineur.Nom) de l'entraineur
+        </th>
+        <th>
+            Niveau de l'équipe
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LibelleEquipe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entraineur.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Niveau.LibelleNiveau)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idEquipe }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idEquipe }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idEquipe })
+        </td>
+    </tr>
+}
+
+</table>

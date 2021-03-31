@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="16007ef22a6b43e7acc7877843694a50" Name="Diagram1">
+        <EntityTypeShape EntityType="Boehler_FootModel.Adherent" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Boehler_FootModel.Entrainement" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Boehler_FootModel.Entraineur" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Boehler_FootModel.Equipe" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Boehler_FootModel.Match" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Boehler_FootModel.Niveau" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Boehler_FootModel.TypeEntrainement" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="Boehler_FootModel.FK__Adherent__idNive__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="Boehler_FootModel.FK__Entrainem__idEnt__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="Boehler_FootModel.FK__Entrainem__idEnt__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="Boehler_FootModel.FK__Entrainem__idEqu__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="Boehler_FootModel.FK__Equipe__idEntrai__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="Boehler_FootModel.FK__Equipe__idNiveau__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="Boehler_FootModel.FK__Matchs__idEquipe__24927208" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
